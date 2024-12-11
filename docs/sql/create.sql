@@ -25,7 +25,7 @@ create table user
     status          tinyint  default 0 not null comment '状态:0正常',
     `create_time`   datetime default current_timestamp comment '创建时间',
     `update_time`   datetime default current_timestamp on update current_timestamp comment '更新时间',
-    isDelete        tinyint  default 0 null comment '是否删除：0-否，1-是',
+    `is_delete`        tinyint  default 0 null comment '是否删除：0-否，1-是',
     role            tinyint  default 0 not null comment '角色'
 ) comment '用户';
 alter table `user`

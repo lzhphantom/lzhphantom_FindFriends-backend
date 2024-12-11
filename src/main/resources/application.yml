@@ -9,14 +9,23 @@ spring:
   session:
     timeout: 86400
 server:
-  port: 8011
+  port: 8012
   servlet:
     context-path: /api
 mybatis-plus:
   configuration:
-    map-underscore-to-camel-case: false
+    map-underscore-to-camel-case: true
   global-config:
     db-config:
       logic-delete-field: isDelete
       logic-delete-value: 1
       logic-not-delete-value: 0
+knife4j:
+  enable: true
+  openapi:
+    version: v4.0
+    group:
+      test1:
+        api-rule: package
+        api-rule-resources:
+          - com.lzhphantom.lzhphantom_findfriendsbackend.controller
