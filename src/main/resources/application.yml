@@ -1,6 +1,8 @@
 spring:
+#  jackson:
+#    default-property-inclusion: non_null
   application:
-    name: lzhphantom-user-center
+    name: lzhphantom-find-friends
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.1.79:3310/lzhphantom?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
@@ -8,6 +10,12 @@ spring:
     password: root
   session:
     timeout: 86400
+    store-type: redis
+  redis:
+    port: 6379
+    host: 192.168.1.79
+    database: 0
+    password: root
 server:
   port: 8012
   servlet:
@@ -23,9 +31,10 @@ mybatis-plus:
 knife4j:
   enable: true
   openapi:
+    title: lzhphantom交友接口文档
     version: v4.0
     group:
-      test1:
+      default:
         api-rule: package
         api-rule-resources:
           - com.lzhphantom.lzhphantom_findfriendsbackend.controller

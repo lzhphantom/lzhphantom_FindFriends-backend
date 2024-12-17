@@ -8,37 +8,52 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 标签表
- * @TableName tag
+ * 队伍
+ * @TableName team
  */
-@TableName(value ="tag")
+@TableName(value ="team")
 @Data
-public class Tag implements Serializable {
+public class Team implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 标签名
+     * 队伍名称
      */
-    private String tagName;
+    private String name;
 
     /**
-     * 创建用户id
+     * 描述
+     */
+    private String description;
+
+    /**
+     * 最大人数
+     */
+    private Integer maxNum;
+
+    /**
+     * 过期时间
+     */
+    private LocalDateTime expireTime;
+
+    /**
+     * 创建人id
      */
     private Long userId;
 
     /**
-     * 父标签id
+     * 状态：0-正常，1-私有，2-加密
      */
-    private Long parentId;
+    private Integer status;
 
     /**
-     * 是否为父标签: 0-不是，1-父标签
+     * 密码
      */
-    private Integer isParent;
+    private String password;
 
     /**
      * 创建时间
@@ -46,17 +61,21 @@ public class Tag implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 
+     * 更新时间
      */
     private LocalDateTime updateTime;
 
     /**
-     * 是否删除: 0-未删除，1-已删除
+     * 是否删除：0-否，1-是
      */
     @TableLogic
     private Integer isDelete;
 
+    /**
+     * 队长
+     */
+    private Long ownerUserId;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
-
 }

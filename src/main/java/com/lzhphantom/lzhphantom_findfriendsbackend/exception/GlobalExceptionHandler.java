@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Log4j2
 public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public BaseResponse<?> businessException(BusinessException e){
         log.error("BusinessException:{}", e.getMessage(),e);
         return ResultUtils.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public BaseResponse<?> runtimeException(RuntimeException e){
         log.error("runtimeException", e);
         return ResultUtils.error(ErrorCode.SYSTEM_ERROR, "系统错误");

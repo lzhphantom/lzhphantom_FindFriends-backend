@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 标签表
- * @TableName tag
+ * 用户-队伍
+ * @TableName user_team
  */
-@TableName(value ="tag")
+@TableName(value ="user_team")
 @Data
-public class Tag implements Serializable {
+public class UserTeam implements Serializable {
     /**
      * 主键
      */
@@ -21,24 +21,19 @@ public class Tag implements Serializable {
     private Long id;
 
     /**
-     * 标签名
-     */
-    private String tagName;
-
-    /**
-     * 创建用户id
+     * 用户id
      */
     private Long userId;
 
     /**
-     * 父标签id
+     * 队伍id
      */
-    private Long parentId;
+    private Long teamId;
 
     /**
-     * 是否为父标签: 0-不是，1-父标签
+     * 加入时间
      */
-    private Integer isParent;
+    private LocalDateTime joinTime;
 
     /**
      * 创建时间
@@ -46,17 +41,16 @@ public class Tag implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 
+     * 更新时间
      */
     private LocalDateTime updateTime;
 
     /**
-     * 是否删除: 0-未删除，1-已删除
+     * 是否删除：0-否，1-是
      */
     @TableLogic
     private Integer isDelete;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
-
 }
