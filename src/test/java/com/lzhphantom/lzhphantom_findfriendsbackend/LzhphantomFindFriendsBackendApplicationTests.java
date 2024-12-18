@@ -46,14 +46,14 @@ class LzhphantomFindFriendsBackendApplicationTests {
     @Test
     void addTag() {
         //添加编程语言
-        Long parentId = 11L;
+        Long parentId = 3185L;
         List<Tag> list = CollUtil.newArrayList();
         List<String> tagNames = tagService.lambdaQuery().eq(Tag::getParentId, parentId).list()
                 .stream().map(Tag::getTagName).collect(Collectors.toList());
         int batch = 10000;
         for (int i = 0; i < batch; i++) {
             Tag tag = new Tag();
-            String name = faker.programmingLanguage().name();
+            String name = faker.company().profession();
             if (tagNames.contains(name)){
                 continue;
             }

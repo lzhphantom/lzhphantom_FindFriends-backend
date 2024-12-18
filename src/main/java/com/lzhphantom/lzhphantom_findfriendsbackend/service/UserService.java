@@ -77,4 +77,6 @@ public interface UserService extends IService<User> {
 
 
     List<UserVo> matchUser(long num, User loginUser);
+
+    boolean updateTags(List<String> tags, User loginUser);
 }

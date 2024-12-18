@@ -251,6 +251,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    @Idempotent(key = "user:update:tags:")
+    public boolean updateTags(List<String> tags, User loginUser) {
+        User user = lambdaQuery().eq(User::getId, loginUser.getId()).one();
+        if (Objects.isNull(user)){
+            throw new BusinessException(ErrorCode.RECORD_NOT_EXIST_ERROR,"用户不存在");
+        }
+        if (CollUtil.isNotEmpty(tags) && tags.size()>10){
+            throw new BusinessException(ErrorCode.PARAMS_NULL_ERROR,"标签数量不能超过10");
+        }
+        user.setTags(JSONUtil.toJsonStr(tags));
+        return updateById(user);
+    }
+
 
     /**
      * 通过sql查询

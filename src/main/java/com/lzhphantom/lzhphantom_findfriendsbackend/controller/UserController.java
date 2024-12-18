@@ -1,6 +1,8 @@
 package com.lzhphantom.lzhphantom_findfriendsbackend.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzhphantom.lzhphantom_findfriendsbackend.common.BaseResponse;
@@ -150,5 +152,26 @@ public class UserController {
         }
         User loginUser = userService.getLoginUser(request);
         return ResultUtils.success(userService.matchUser(num, loginUser));
+    }
+
+    @GetMapping("/user/tags")
+    public BaseResponse<List<String>> getUserTags(HttpServletRequest request) {
+        User loginUser = userService.getLoginUser(request);
+        User one = userService.lambdaQuery().eq(User::getId, loginUser.getId()).one();
+        if (StringUtils.isEmpty(one.getTags())) {
+            return ResultUtils.success(CollUtil.newArrayList());
+        }
+        List<String> tags = JSONUtil.toList(one.getTags(), String.class);
+        return ResultUtils.success(CollUtil.newArrayList(tags));
+    }
+
+    @GetMapping("/update/tags")
+    public BaseResponse<Boolean> updateUserTags(String[] tags, HttpServletRequest request) {
+        if (Objects.isNull(tags)){
+            throw new BusinessException(ErrorCode.PARAMS_NULL_ERROR);
+        }
+        User loginUser = userService.getLoginUser(request);
+
+        return ResultUtils.success(userService.updateTags(CollUtil.newArrayList(tags),loginUser));
     }
 }
